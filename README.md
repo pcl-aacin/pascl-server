@@ -110,7 +110,7 @@ else:
 
 request为处理后的客户端信息
 
-response为服务端返回操作（详细请看require.response条目）
+response为服务端返回操作（详细请看[require.response](#requireresponse)条目）
 
 next为一个函数，如果不执行会导致加入时间比自己晚的路由无法执行，但不会让程序出错
 
