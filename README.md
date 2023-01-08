@@ -1,6 +1,14 @@
 # Pascl-Server
 一个很简单——真的很简单的HTTP服务端
 
+但是支持多线程！
+
+# TODO
+- [ ] COOKIE解析
+- [ ] 支持WebSocket
+- [ ] 支持HTTP/3.0
+- [ ] 支持扩展
+
 # 注意
 本项目目前仅支持以下METHOD
 
@@ -16,6 +24,16 @@
 + POST
 + GET
 + OPTIONS
+
+本项目的多线程原理为
+
+为每一个连接创建一个线程
+
+而每个线程又都有三个字线程，分别为Recv（接收）、Handle（处理）、Send（发送）
+
+也就是每个连接将会占有四个线程！
+
+但由于Queue优先队列，将该方法的损耗降低了不小
 
 但该项目仍在持续完善中！
 
@@ -142,7 +160,29 @@ msg 则为详细状态
 ``` json
 {
   "content-type": "text/html; charset=UTF-8",
-  "content-length": 128,
-  // ...
+  "content-length": 128
 }
 ```
+
+## request
+这是一个数组
+
+### request.http_version
+HTTP协议版本
+
+### request.path
+访问路径
+
+### request.method
+访问方式
+
+### request.query
+GET参数
+
+### request.post
+POST参数（支持```application/x-www-form-urlencoded```和```application/json```）
+
+### request.headers
+HEADER头
+
+### request.content-type
