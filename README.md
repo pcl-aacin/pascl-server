@@ -188,3 +188,9 @@ POST参数（支持```application/x-www-form-urlencoded```和```application/json
 HEADER头
 
 ### request.content-type
+经过严格分离的content-type
+
+headers中的content-type可能还会包括charset等信息
+
+### request.charset
+从headers的content-type分离出的charset（编码格式）
