@@ -209,19 +209,17 @@ class ReturnThread(threading.Thread):
 
 					if data != "":
 						if request["content-type"] == "application/x-www-form-urlencoded":
-							query = {}
-
-							for getdata in data.split("&"):
+							for postdata in data.split("&"):
 								# 防止 a=b&&&v=c
-								if getdata.rstrip() == "":
+								if postdata.rstrip() == "":
 									continue
 								
 								# 防止 a===b
-								temp = getdata.split("=")
+								temp = postdata.split("=")
 								name = urllib.parse.unquote("".join(temp[:1]))
 								value = urllib.parse.unquote("=".join(temp[1:]))
 
-								query[name] = value
+								request["post"][name] = value
 						elif request["content-type"] == "application/json":
 							try:
 								request["post"] = json.loads(data)
