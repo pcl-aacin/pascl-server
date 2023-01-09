@@ -129,13 +129,15 @@ server.get(".*",HelloWorld)
 
 还可以这样写
 
-```
+``` python
 @server.get(".*")
 def HelloWorld(request,response,next):
   response.setHeader("content-type", "text/html; chatset=UTF-8")
   response.end('''<h1>Hello World!</h1>'''.encode())
   next()
 ```
+
+支持函数修饰器！
 
 ## server.all()
 参数、介绍大致同上
