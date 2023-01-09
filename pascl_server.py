@@ -382,18 +382,24 @@ class CreateServer:
 
 			self.threadId += 1
 	
-	def options(self,path,require):
-		self.__regrouter__(path, require, r"options")
-	def get(self,path,require):
-		self.__regrouter__(path, require, r"get")
-	def post(self,path,require):
-		self.__regrouter__(path, require, r"post")
-	def all(self,path,require):
-		self.__regrouter__(path, require, r".*")
+	def options(self,path,require = False):
+		return self.__regrouter__(path, require, r"options")
+	def get(self,path,require = False):
+		return self.__regrouter__(path, require, r"get")
+	def post(self,path,require = False):
+		return self.__regrouter__(path, require, r"post")
+	def all(self,path,require = False):
+		return self.__regrouter__(path, require, r".*")
 		
 	def __regrouter__(self,path,require,method):
-		__ROUTER__.append({
-			"path": '^{}$'.format(path),
-			"require": require,
-			"method": method
-		})
+		def fn(require):
+			__ROUTER__.append({
+				"path": '^{}$'.format(path),
+				"require": require,
+				"method": method
+			})
+
+		if require == False:
+			return fn
+		else:
+			fn(require)
