@@ -116,6 +116,27 @@ next为一个函数，如果不执行会导致加入时间比自己晚的路由�
 
 看到这里大概明白了吧，本项目是对照```express```开发的
 
+但是呢，本函数不一定要这么写↓
+
+``` python
+def HelloWorld(request,response,next):
+  response.setHeader("content-type", "text/html; chatset=UTF-8")
+  response.end('''<h1>Hello World!</h1>'''.encode())
+  next()
+
+server.get(".*",HelloWorld)
+```
+
+还可以这样写
+
+```
+@server.get(".*")
+def HelloWorld(request,response,next):
+  response.setHeader("content-type", "text/html; chatset=UTF-8")
+  response.end('''<h1>Hello World!</h1>'''.encode())
+  next()
+```
+
 ## server.all()
 参数、介绍大致同上
 
